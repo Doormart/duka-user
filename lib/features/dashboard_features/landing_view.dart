@@ -1,9 +1,8 @@
 import 'package:duka_user/core/utils/color_utils.dart';
 import 'package:duka_user/core/utils/images_utils.dart';
 import 'package:duka_user/core/utils/size_manager.dart';
-import 'package:duka_user/features/dashboard_features/view_models/dashboard_view_model.dart';
+import 'package:duka_user/features/dashboard_features/view_models/landing_view_model.dart';
 import 'package:duka_user/features/dashboard_features/widgets/complete_profile.dart';
-import 'package:duka_user/features/dashboard_features/widgets/select_region.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -19,55 +18,20 @@ class _LandingViewState extends State<LandingView> {
   Widget build(BuildContext context) {
     SizeMg.init(context);
     return Scaffold(
-      body: ViewModelBuilder<DashboardViewModel>.reactive(
-        viewModelBuilder: () => DashboardViewModel(),
+      body: ViewModelBuilder<LandingViewModel>.reactive(
+        viewModelBuilder: () => LandingViewModel(),
         builder: (_, model, __) => SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              //Select region and search section
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: SizeMg.width(21),
-                  vertical: SizeMg.height(25),
-                ),
-                child: Row(
-                  children: [
-                    SelectRegion(
-                      onTap: () {
-                        model.regionView();
-                        print(model.regionModel?.region);
-                      },
-                      region: model.regionModel?.region,
-                    ),
-                    const Spacer(),
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(
-                            Icons.search,
-                          ),
-                          onPressed: () {
-                            //TODO Search food
-                          },
-                        ),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.notifications_none_rounded,
-                          ),
-                          onPressed: () {
-                            //TODO notification
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+              SizedBox(
+                height: SizeMg.height(38),
               ),
               //Complete profile
               const CompleteProfile(),
               //Others
               GestureDetector(
+                onTap: model.dashboardView,
                 child: Container(
                   height: SizeMg.height(142),
                   margin: const EdgeInsets.all(21),

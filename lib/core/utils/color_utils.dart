@@ -13,4 +13,9 @@ class Palette {
   static const Color staleBlue = Color(0xFFC5D0E0);
   static const Color inactiveGrey = Color(0xFFC7C7C7);
   static const Color offWhite = Color(0xFFF8F8F8);
+  static const Color imageDetails = Color(0xFFC5C5C5);
+  static const Color imageGradBegin = Color.fromRGBO(30, 30, 30, 0);
+  static const Color imageGradEnd = Color.fromRGBO(30, 30, 30, 0.94);
+  static const Color imageHeart = Color.fromRGBO(217, 217, 217, 0.13);
+
 }

@@ -1,8 +1,7 @@
 import 'package:duka_user/core/utils/color_utils.dart';
 import 'package:duka_user/core/utils/constants.dart';
 import 'package:duka_user/core/utils/size_manager.dart';
-import 'package:duka_user/features/dashboard_features/view_models/dashboard_view_model.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:duka_user/features/dashboard_features/view_models/select_region_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -51,8 +50,8 @@ class _SelectRegionViewState extends State<SelectRegionView> {
         ),
         titleSpacing: 0,
       ),
-      body: ViewModelBuilder<DashboardViewModel>.reactive(
-        viewModelBuilder: () => DashboardViewModel(),
+      body: ViewModelBuilder<SelectRegionViewModel>.reactive(
+        viewModelBuilder: () => SelectRegionViewModel(),
         builder: (_, model, __) => SafeArea(
           child: Column(
             children: [
@@ -105,8 +104,7 @@ class _SelectRegionViewState extends State<SelectRegionView> {
                       itemBuilder: (ctx, index) => GestureDetector(
                         onTap: (){
                           model.selectRegion(model.regionsList![index]);
-                          model.landingView();
-                          print(model.regionModel!.region);
+                          model.previousView();
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -114,7 +112,7 @@ class _SelectRegionViewState extends State<SelectRegionView> {
                             vertical: SizeMg.height(18),
                           ),
                           child: Text(
-                            model.regionsList![index].region,
+                            model.regionsList![index].region!,
                             style: TextStyle(
                               fontSize: SizeMg.text(18),
                               color: Palette.secondaryBlack,

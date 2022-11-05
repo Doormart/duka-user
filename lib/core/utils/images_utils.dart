@@ -22,4 +22,7 @@ class ImageUtils {
 
   //Svg files
   static const String biometrics = 'assets/svg/biometrics.svg';
+  static const String homeIcon = 'assets/svg/home.svg';
+  static const String ordersIcon = 'assets/svg/orders.svg';
+  static const String profileIcon = 'assets/svg/profile.svg';
 }

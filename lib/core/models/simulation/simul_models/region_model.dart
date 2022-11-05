@@ -1,11 +1,11 @@
 class RegionModel{
 
-  int id;
-  String region;
+  int? id;
+  String? region;
 
   RegionModel({
-    required this.id,
-    required this.region,
+    this.id,
+    this.region,
   });
 
   factory RegionModel.fromJson(Map<String, dynamic> json) => RegionModel(

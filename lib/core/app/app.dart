@@ -3,8 +3,8 @@ import 'package:duka_user/features/auth_features/create_account_view.dart';
 import 'package:duka_user/features/auth_features/create_account_otp_view.dart';
 import 'package:duka_user/features/auth_features/login_otp_view.dart';
 import 'package:duka_user/features/auth_features/login_view.dart';
+import 'package:duka_user/features/dashboard_features/dashboard_view.dart';
 import 'package:duka_user/features/dashboard_features/landing_view.dart';
-import 'package:duka_user/features/dashboard_features/select_region_view.dart';
 import 'package:duka_user/features/splash_screen_features/splash_screen_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -21,7 +21,7 @@ import 'package:stacked_services/stacked_services.dart';
     AdaptiveRoute(page: LoginView),
     AdaptiveRoute(page: LoginOtpView),
     AdaptiveRoute(page: LandingView),
-    AdaptiveRoute(page: SelectRegionView),
+    AdaptiveRoute(page: DashboardView),
   ],
   logger: StackedLogger(),
   dependencies: [

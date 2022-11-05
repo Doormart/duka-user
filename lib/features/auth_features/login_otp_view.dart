@@ -32,6 +32,7 @@ class _LoginOtpViewState extends State<LoginOtpView> {
   @override
   Widget build(BuildContext context) {
     SizeMg.init(context);
+    var bottomInsets = MediaQuery.of(context).viewInsets.bottom;
     return GestureDetector(
       onTap: () => focusManager.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -139,14 +140,24 @@ class _LoginOtpViewState extends State<LoginOtpView> {
                   height: SizeMg.height(32),
                 ),
                 //Button
-                PrimaryButton(
-                  buttonConfig: ButtonConfig(
-                    text: 'Login',
-                    action: () {
-                      _navigationService.pushNamedAndRemoveUntil(Routes.landingView);
-                      focusManager.primaryFocus?.unfocus();
+                AnimatedSize(
+                  duration: const Duration(milliseconds: 250),
+                  child: Builder(
+                    builder: (ctx) {
+                      if (bottomInsets != 0) {
+                        return const SizedBox.shrink();
+                      }
+                      return PrimaryButton(
+                        buttonConfig: ButtonConfig(
+                          text: 'Login',
+                          action: () {
+                            _navigationService.pushNamedAndRemoveUntil(Routes.landingView);
+                            focusManager.primaryFocus?.unfocus();
+                          },
+                          disabled: (_otpController.text.length < 4),
+                        ),
+                      );
                     },
-                    disabled: (_otpController.text.length < 4),
                   ),
                 ),
               ],
