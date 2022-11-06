@@ -20,6 +20,8 @@ dependencies:
   logger: ^1.1.0
   flutter_native_splash: ^2.2.7
   flutter_svg: ^1.1.2
+  get_storage: ^2.0.3
+  carousel_slider: ^4.1.1
 
 dev_dependencies:
   flutter_test:
