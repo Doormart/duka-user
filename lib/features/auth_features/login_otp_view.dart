@@ -106,6 +106,9 @@ class _LoginOtpViewState extends State<LoginOtpView> {
                   ),
                   onChanged: (value) {
                     toggleOtpColor(value);
+                    if (value.length == 4){
+                      focusManager.primaryFocus?.unfocus();
+                    }
                   },
                 ),
                 SizedBox(
