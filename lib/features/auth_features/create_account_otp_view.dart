@@ -28,15 +28,12 @@ class _CreateAccountOtpViewState extends State<CreateAccountOtpView> {
     SizeMg.init(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);
           },
           child: const Icon(
             Icons.arrow_back_ios_new_rounded,
-            color: Palette.blackGreen,
           ),
         ),
         title: Text(

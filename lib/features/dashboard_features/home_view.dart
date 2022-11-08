@@ -2,8 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:duka_user/core/models/simulation/simul_models/notification_model.dart';
 import 'package:duka_user/core/utils/color_utils.dart';
 import 'package:duka_user/core/utils/size_manager.dart';
+import 'package:duka_user/core/utils/string_utils.dart';
 import 'package:duka_user/features/dashboard_features/view_models/home_view_model.dart';
-import 'package:duka_user/features/dashboard_features/widgets/carousel_vendor.dart';
+import 'package:duka_user/features/dashboard_features/widgets/carousel_stack.dart';
 import 'package:duka_user/features/dashboard_features/widgets/notification_widget.dart';
 import 'package:duka_user/features/dashboard_features/widgets/select_region.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class _HomeViewState extends State<HomeView> {
     SizeMg.init(context);
     return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () => HomeViewModel(),
-      onModelReady: (model) => model.methods(),
+      onModelReady: (model) => model.init(),
       fireOnModelReadyOnce: true,
       disposeViewModel: false,
       builder: (_, model, __) => Builder(builder: (context) {
@@ -35,11 +36,6 @@ class _HomeViewState extends State<HomeView> {
         }
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.white,
-            elevation: 0,
-            iconTheme: const IconThemeData(
-              color: Colors.black,
-            ),
             title: SelectRegion(
               onTap: model.regionView,
               region: model.regionModel?.region,
@@ -49,9 +45,7 @@ class _HomeViewState extends State<HomeView> {
                 icon: const Icon(
                   Icons.search,
                 ),
-                onPressed: () {
-                  //TODO Search food
-                },
+                onPressed: model.searchFood,
               ),
               NotificationWidget(
                 notification: model.notification,
@@ -83,9 +77,15 @@ class _HomeViewState extends State<HomeView> {
                   CarouselSlider.builder(
                     itemCount: model.vendList!.length,
                     itemBuilder: (ctx, _, index) {
-                      return CarouselVendor(
-                        stack: CarouselStack(
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: SizeMg.width(24),
+                        ),
+                        child: CarouselStack(
                           vendor: model.vendList![index],
+                          onTap: (){
+                            model.vendorDetailsView(model.vendList![index]);
+                          },
                         ),
                       );
                     },
@@ -134,6 +134,9 @@ class _HomeViewState extends State<HomeView> {
                         height: SizeMg.height(166),
                         child: CarouselStack(
                           vendor: model.vendList![index],
+                          onTap: (){
+                            model.vendorDetailsView(model.vendList![index]);
+                          },
                         ),
                       );
                     },
@@ -152,7 +155,8 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Future _buildNotificationScreen(List<NotificationModel>? notificationList, HomeViewModel model) {
+  Future _buildNotificationScreen(
+      List<NotificationModel>? notificationList, HomeViewModel model) {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -217,14 +221,15 @@ class _HomeViewState extends State<HomeView> {
                                   bottom: SizeMg.height(28),
                                 ),
                                 child: Text(
-                                  model.checkToday(notificationModel.date),
+                                  StringUtils.checkToday(notificationModel.date),
                                   style: TextStyle(
                                     fontSize: SizeMg.text(20),
                                     color: Palette.blackGreen,
                                   ),
                                 ),
                               ),
-                              _buildNotificationDetails(notificationModel, model),
+                              _buildNotificationDetails(
+                                  notificationModel, model),
                             ],
                           );
                         },
@@ -246,15 +251,14 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Widget _buildNotificationDetails(NotificationModel notificationModel, HomeViewModel model) {
+  Widget _buildNotificationDetails(
+      NotificationModel notificationModel, HomeViewModel model) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: notificationModel.data
           .map(
             (notification) => GestureDetector(
-              onTap: (){
-                //TODO a function to mark notifications as read
-              },
+              onTap: model.readNotification,
               child: Container(
                 decoration: BoxDecoration(
                   color:
@@ -280,7 +284,7 @@ class _HomeViewState extends State<HomeView> {
                       ),
                     ),
                     Text(
-                      model.checkTime(notification.notificationDate),
+                      StringUtils.checkTime(notification.notificationDate),
                       textAlign: TextAlign.right,
                       style: TextStyle(
                         fontSize: SizeMg.text(12),

@@ -37,15 +37,12 @@ class _LoginOtpViewState extends State<LoginOtpView> {
       onTap: () => focusManager.primaryFocus?.unfocus(),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0.0,
           leading: InkWell(
             onTap: () {
               Navigator.pop(context);
             },
             child: const Icon(
               Icons.arrow_back_ios_new_rounded,
-              color: Palette.blackGreen,
             ),
           ),
           title: Text(

@@ -40,15 +40,12 @@ class _CreateAccountViewState extends State<CreateAccountView> {
     SizeMg.init(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
         leading: InkWell(
           onTap: () {
             _navigationService.pushNamedAndRemoveUntil(Routes.authHomeView);
           },
           child: const Icon(
             Icons.arrow_back_ios_new_rounded,
-            color: Palette.blackGreen,
           ),
         ),
         title: Text(

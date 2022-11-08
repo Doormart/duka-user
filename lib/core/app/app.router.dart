@@ -5,6 +5,8 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:duka_user/core/models/simulation/simul_models/vendor_model.dart'
+    as _i12;
 import 'package:duka_user/features/auth_features/auth_home_view.dart' as _i3;
 import 'package:duka_user/features/auth_features/create_account_otp_view.dart'
     as _i5;
@@ -15,12 +17,14 @@ import 'package:duka_user/features/auth_features/login_view.dart' as _i6;
 import 'package:duka_user/features/dashboard_features/dashboard_view.dart'
     as _i9;
 import 'package:duka_user/features/dashboard_features/landing_view.dart' as _i8;
+import 'package:duka_user/features/dashboard_features/vendor_details_view.dart'
+    as _i10;
 import 'package:duka_user/features/splash_screen_features/splash_screen_view.dart'
     as _i2;
-import 'package:flutter/material.dart' as _i10;
+import 'package:flutter/material.dart' as _i11;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i11;
+import 'package:stacked_services/stacked_services.dart' as _i13;
 
 class Routes {
   static const splashScreenView = '/';
@@ -39,6 +43,8 @@ class Routes {
 
   static const dashboardView = '/dashboard-view';
 
+  static const vendorDetailsView = '/vendor-details-view';
+
   static const all = <String>{
     splashScreenView,
     authHomeView,
@@ -48,6 +54,7 @@ class Routes {
     loginOtpView,
     landingView,
     dashboardView,
+    vendorDetailsView,
   };
 }
 
@@ -84,6 +91,10 @@ class StackedRouter extends _i1.RouterBase {
     _i1.RouteDef(
       Routes.dashboardView,
       page: _i9.DashboardView,
+    ),
+    _i1.RouteDef(
+      Routes.vendorDetailsView,
+      page: _i10.VendorDetailsView,
     ),
   ];
 
@@ -139,6 +150,14 @@ class StackedRouter extends _i1.RouterBase {
         settings: data,
       );
     },
+    _i10.VendorDetailsView: (data) {
+      final args = data.getArgs<VendorDetailsViewArguments>(nullOk: false);
+      return _i1.buildAdaptivePageRoute<dynamic>(
+        builder: (context) =>
+            _i10.VendorDetailsView(key: args.key, vendor: args.vendor),
+        settings: data,
+      );
+    },
   };
 
   @override
@@ -150,10 +169,21 @@ class StackedRouter extends _i1.RouterBase {
 class AuthHomeViewArguments {
   const AuthHomeViewArguments({this.key});
 
-  final _i10.Key? key;
+  final _i11.Key? key;
 }
 
-extension NavigatorStateExtension on _i11.NavigationService {
+class VendorDetailsViewArguments {
+  const VendorDetailsViewArguments({
+    this.key,
+    required this.vendor,
+  });
+
+  final _i11.Key? key;
+
+  final _i12.Vendor vendor;
+}
+
+extension NavigatorStateExtension on _i13.NavigationService {
   Future<dynamic> navigateToSplashScreenView([
     int? routerId,
     bool preventDuplicates = true,
@@ -169,7 +199,7 @@ extension NavigatorStateExtension on _i11.NavigationService {
   }
 
   Future<dynamic> navigateToAuthHomeView({
-    _i10.Key? key,
+    _i11.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -262,6 +292,23 @@ extension NavigatorStateExtension on _i11.NavigationService {
         transition,
   ]) async {
     return navigateTo<dynamic>(Routes.dashboardView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToVendorDetailsView({
+    _i11.Key? key,
+    required _i12.Vendor vendor,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.vendorDetailsView,
+        arguments: VendorDetailsViewArguments(key: key, vendor: vendor),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

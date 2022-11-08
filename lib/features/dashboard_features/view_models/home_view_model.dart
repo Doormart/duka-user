@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:duka_user/core/app/app.locator.dart';
+import 'package:duka_user/core/app/app.router.dart';
 import 'package:duka_user/core/models/simulation/simul_models/notification_model.dart';
 import 'package:duka_user/core/models/simulation/simul_models/product_model.dart';
 import 'package:duka_user/core/models/simulation/simul_models/region_model.dart';
@@ -8,7 +9,6 @@ import 'package:duka_user/core/models/simulation/simul_values.dart';
 import 'package:duka_user/core/utils/box_storage_utils.dart';
 import 'package:duka_user/features/dashboard_features/select_region_view.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:jiffy/jiffy.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -29,7 +29,7 @@ class HomeViewModel extends BaseViewModel {
     return _listNotification;
   }
 
-  void methods() {
+  void init() {
     setBusy(true);
     _getRegion();
     _getNotifications();
@@ -77,38 +77,15 @@ class HomeViewModel extends BaseViewModel {
     );
   }
 
-  String checkToday(DateTime time) {
-    Jiffy today = Jiffy(DateTime.now());
-    Jiffy dateTime = Jiffy(time);
-    if (dateTime.isSame(today, Units.DAY)) {
-      return 'Today';
-    }
-    return dateTime.format('dd-MM-yyyy');
+  void vendorDetailsView(Vendor vendor){
+    _navigationService.navigateToVendorDetailsView(vendor: vendor);
   }
 
-  String checkTime(DateTime time) {
-    Jiffy today = Jiffy(DateTime.now());
-    Jiffy dateTime = Jiffy(time);
-    num dateDiffSec = today.diff(dateTime, Units.SECOND);
-    //Checking if its less than a minute
-    if (dateDiffSec < 60) {
-      return '$dateDiffSec seconds ago';
-    }
-    //Checking if its less than an hour
-    else if (dateDiffSec < 3600) {
-      int dateDiffMin = dateDiffSec ~/ 60;
-      return '$dateDiffMin mins ago';
-    }
-    //Checking if its less than a day
-    else if (dateDiffSec < 86400) {
-      int dateDiffHr = dateDiffSec ~/ 3600;
-      return '$dateDiffHr hrs ago';
-    }
-    //Checking if its less than 2 days
-    else if (dateDiffSec < 172800) {
-      int dateDiffDay = dateDiffSec ~/ 86400;
-      return '$dateDiffDay days ago';
-    }
-    return dateTime.format('EEEE, do MMMM, yyyy');
+  void searchFood(){
+    print('Food searched');
+  }
+
+  void readNotification(){
+    print('Notification read');
   }
 }

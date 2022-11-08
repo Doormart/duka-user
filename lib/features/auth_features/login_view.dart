@@ -180,15 +180,12 @@ class _LoginViewState extends State<LoginView> {
       onTap: () => focusManager.primaryFocus?.unfocus(),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0.0,
           leading: InkWell(
             onTap: () {
               _navigationService.pushNamedAndRemoveUntil(Routes.authHomeView);
             },
             child: const Icon(
               Icons.arrow_back_ios_new_rounded,
-              color: Palette.blackGreen,
             ),
           ),
           title: Text(

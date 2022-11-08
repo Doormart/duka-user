@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class NotificationWidget extends StatelessWidget {
   final int notification;
-  final Function() onPressed;
+  final VoidCallback onPressed;
 
   const NotificationWidget(
       {Key? key, required this.notification, required this.onPressed})

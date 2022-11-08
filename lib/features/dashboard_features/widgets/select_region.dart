@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class SelectRegion extends StatelessWidget {
 
-  final Function() onTap;
+  final VoidCallback onTap;
   final String? region;
 
   const SelectRegion({Key? key, required this.onTap, this.region}) : super(key: key);
