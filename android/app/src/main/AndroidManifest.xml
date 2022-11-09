@@ -2,7 +2,7 @@
     package="com.example.duka_user">
    <uses-permission android:name="android.permission.INTERNET"/>"
    <application
-        android:label="Duka-User"
+        android:label="Duka"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

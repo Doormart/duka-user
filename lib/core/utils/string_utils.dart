@@ -1,3 +1,4 @@
+import 'package:duka_user/core/utils/constants.dart';
 import 'package:jiffy/jiffy.dart';
 
 class StringUtils {
@@ -35,6 +36,14 @@ class StringUtils {
       return '$dateDiffDay days ago';
     }
     return dateTime.format('EEEE, do MMMM, yyyy');
+  }
+
+  static String numFormatNoDecimal(dynamic number){
+    return kNumFormatNoDecimal.format(number);
+  }
+
+  static String numFormatDecimal(dynamic number){
+    return kNumFormatDecimal.format(number);
   }
 
 }

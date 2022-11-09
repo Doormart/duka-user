@@ -9,7 +9,7 @@ List<Product> productList = [
     name: 'Spaghetti plantain & turkey',
     description:
         'Consist of shredded beef, turkey, plantain. orem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi',
-    price: '1500',
+    price: 1500,
     image1:
         'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80',
     image2:
@@ -27,7 +27,7 @@ List<Product> productList = [
     name: 'Firewood Jollof Rice Plantain & Turkey',
     description:
         'Consist of shredded beef, turkey, plantain. orem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi',
-    price: '1500',
+    price: 1500,
     image1:
         'https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
     image2:
@@ -45,7 +45,7 @@ List<Product> productList = [
     name: 'Spaghetti plantain & turkey',
     description:
         'Consist of shredded beef, turkey, plantain. orem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi',
-    price: '1500',
+    price: 1500,
     image3:
         'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80',
     image1:
@@ -63,7 +63,7 @@ List<Product> productList = [
     name: 'Spaghetti plantain & turkey',
     description:
         'Consist of shredded beef, turkey, plantain. orem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi',
-    price: '1500',
+    price: 1500,
     image4:
         'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80',
     image1:

@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:duka_user/core/models/simulation/simul_models/vendor_model.dart';
 import 'package:duka_user/core/utils/color_utils.dart';
+import 'package:duka_user/core/utils/images_utils.dart';
 import 'package:duka_user/core/utils/size_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -19,16 +21,17 @@ class CarouselStack extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Stack(
+        fit: StackFit.passthrough,
         children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(
-                SizeMg.radius(15),
-              ),
-              image: DecorationImage(
-                image: NetworkImage(vendor.publicImage!),
-                fit: BoxFit.cover,
-              ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(
+              SizeMg.radius(15),
+            ),
+            child: CachedNetworkImage(
+              imageUrl: '${vendor.publicImage}',
+              placeholder: (ctx, url) => Image.asset(ImageUtils.brandLogo),
+              errorWidget: (ctx, url, dyn) => Image.asset(ImageUtils.brandLogo),
+              fit: BoxFit.cover,
             ),
           ),
           Positioned(

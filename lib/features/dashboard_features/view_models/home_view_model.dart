@@ -78,7 +78,9 @@ class HomeViewModel extends BaseViewModel {
   }
 
   void vendorDetailsView(Vendor vendor){
-    _navigationService.navigateToVendorDetailsView(vendor: vendor);
+    _navigationService.navigateToVendorDetailsView(
+      vendor: vendor,
+    );
   }
 
   void searchFood(){

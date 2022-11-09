@@ -25,4 +25,5 @@ class ImageUtils {
   static const String homeIcon = 'assets/svg/home.svg';
   static const String ordersIcon = 'assets/svg/orders.svg';
   static const String profileIcon = 'assets/svg/profile.svg';
+  static const String deliveryTruck = 'assets/svg/truck.svg';
 }
