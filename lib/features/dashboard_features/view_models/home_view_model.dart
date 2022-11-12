@@ -17,7 +17,6 @@ class HomeViewModel extends BaseViewModel {
   RegionModel? regionModel;
 
   final List<NotificationModel> _listNotification = notificationGroup;
-  final List<Product> _listProduct = productList;
   final List<Vendor> _listVendor = vendorList;
   final _navigationService = locator<NavigationService>();
   final box = GetStorage();
@@ -33,7 +32,6 @@ class HomeViewModel extends BaseViewModel {
     setBusy(true);
     _getRegion();
     _getNotifications();
-    _getProducts();
     _getVendors();
     Timer(const Duration(seconds: 3), () {
       setBusy(false);
@@ -57,11 +55,6 @@ class HomeViewModel extends BaseViewModel {
       number = number + model.number;
     }
     notification = number;
-    notifyListeners();
-  }
-
-  void _getProducts() {
-    prodList = _listProduct.take(3).toList();
     notifyListeners();
   }
 

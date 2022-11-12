@@ -6,7 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 void main() async {
-  setupLocator();
+  await setupLocator();
   await GetStorage.init();
   runApp(const MyApp());
 }

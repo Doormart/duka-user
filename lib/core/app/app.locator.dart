@@ -9,6 +9,8 @@
 import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_services/src/navigation/navigation_service.dart';
 
+import '../models/simulation/simul_models/order_product_model.dart';
+
 final locator = StackedLocator.instance;
 
 Future<void> setupLocator(
@@ -19,4 +21,5 @@ Future<void> setupLocator(
 
 // Register dependencies
   locator.registerLazySingleton(() => NavigationService());
+  locator.registerLazySingleton(() => OrderProduct());
 }

@@ -4,7 +4,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class CompleteProfile extends StatefulWidget {
-  const CompleteProfile({Key? key}) : super(key: key);
+
+  final VoidCallback onHereTap;
+
+  const CompleteProfile({Key? key, required this.onHereTap,}) : super(key: key);
 
   @override
   State<CompleteProfile> createState() => _CompleteProfileState();
@@ -51,10 +54,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                 color: Palette.mainOrange,
               ),
               recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                //TODO Profile view
-                  print('hello');
-                },
+                ..onTap = widget.onHereTap,
             ),
           ],
         ),

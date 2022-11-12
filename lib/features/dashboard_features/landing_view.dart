@@ -28,7 +28,9 @@ class _LandingViewState extends State<LandingView> {
                 height: SizeMg.height(38),
               ),
               //Complete profile
-              const CompleteProfile(),
+              CompleteProfile(
+                onHereTap: model.profileView,
+              ),
               //Others
               GestureDetector(
                 onTap: model.dashboardView,

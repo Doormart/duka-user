@@ -1,3 +1,4 @@
+import 'package:duka_user/core/models/simulation/simul_models/order_product_model.dart';
 import 'package:duka_user/features/auth_features/auth_home_view.dart';
 import 'package:duka_user/features/auth_features/create_account_view.dart';
 import 'package:duka_user/features/auth_features/create_account_otp_view.dart';
@@ -5,6 +6,8 @@ import 'package:duka_user/features/auth_features/login_otp_view.dart';
 import 'package:duka_user/features/auth_features/login_view.dart';
 import 'package:duka_user/features/dashboard_features/dashboard_view.dart';
 import 'package:duka_user/features/dashboard_features/landing_view.dart';
+import 'package:duka_user/features/dashboard_features/product_details_view.dart';
+import 'package:duka_user/features/dashboard_features/profile_view.dart';
 import 'package:duka_user/features/dashboard_features/vendor_details_view.dart';
 import 'package:duka_user/features/splash_screen_features/splash_screen_view.dart';
 import 'package:stacked/stacked_annotations.dart';
@@ -24,10 +27,13 @@ import 'package:stacked_services/stacked_services.dart';
     AdaptiveRoute(page: LandingView),
     AdaptiveRoute(page: DashboardView),
     AdaptiveRoute(page: VendorDetailsView),
+    AdaptiveRoute(page: ProductDetailView),
+    AdaptiveRoute(page: ProfileView),
   ],
   logger: StackedLogger(),
   dependencies: [
     LazySingleton(classType: NavigationService),
+    LazySingleton(classType: OrderProduct),
   ],
 )
 

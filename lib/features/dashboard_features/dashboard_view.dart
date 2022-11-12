@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:duka_user/core/utils/color_utils.dart';
 import 'package:duka_user/core/utils/images_utils.dart';
 import 'package:duka_user/core/utils/size_manager.dart';
@@ -44,7 +45,33 @@ class _DashboardViewState extends State<DashboardView> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(ImageUtils.ordersIcon),
+              icon: Builder(
+                builder: (context) {
+                  if (model.orders < 1){
+                    return SvgPicture.asset(
+                      ImageUtils.ordersIcon,
+                    );
+                  }
+                  return Badge(
+                    badgeContent: Text(
+                      '${model.orders}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: SizeMg.text(18),
+                      ),
+                    ),
+                    elevation: 0,
+                    badgeColor: Palette.mainOrange,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeMg.width(7),
+                      vertical: SizeMg.height(3)
+                    ),
+                    child: SvgPicture.asset(
+                      ImageUtils.ordersIcon,
+                    ),
+                  );
+                }
+              ),
               activeIcon: SvgPicture.asset(
                 ImageUtils.ordersIcon,
                 color: Palette.mainOrange,

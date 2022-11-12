@@ -18,5 +18,4 @@ class Palette {
   static const Color imageGradBegin = Color.fromRGBO(30, 30, 30, 0);
   static const Color imageGradEnd = Color.fromRGBO(30, 30, 30, 0.94);
   static const Color imageHeart = Color.fromRGBO(217, 217, 217, 0.13);
-
 }
