@@ -14,16 +14,15 @@ class ImageUtils {
   static const String shopFood = 'assets/png/shop_food.png';
   static const String pharmacy = 'assets/png/pharmacy.png';
 
-  static const String productCream = 'assets/png/product_cream.png';
-  static const String productCakes = 'assets/png/product_cakes.png';
-  static const String productCuisine = 'assets/png/product_cuisine.png';
-  static const String productPappies = 'assets/png/product_pappies.png';
-  static const String productSpaghetti = 'assets/png/product_spaghetti.png';
-
   //Svg files
   static const String biometrics = 'assets/svg/biometrics.svg';
   static const String homeIcon = 'assets/svg/home.svg';
   static const String ordersIcon = 'assets/svg/orders.svg';
   static const String profileIcon = 'assets/svg/profile.svg';
   static const String deliveryTruck = 'assets/svg/truck.svg';
+  static const String coupon = 'assets/svg/coupon.svg';
+  static const String trackOrder = 'assets/svg/track_order.svg';
+
+  //Gif file
+  static const String placingOrderGif = 'assets/gif/placing_order.gif';
 }

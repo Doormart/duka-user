@@ -28,6 +28,6 @@ InputDecoration kFormTextDecoration = InputDecoration(
   ),
 );
 
-NumberFormat kNumFormatNoDecimal = NumberFormat('0,000');
+NumberFormat kNumFormatNoDecimal = NumberFormat('#,###');
 
-NumberFormat kNumFormatDecimal = NumberFormat('0,000.00');
+NumberFormat kNumFormatDecimal = NumberFormat('#,###.0#');

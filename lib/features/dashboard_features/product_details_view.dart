@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:duka_user/core/models/simulation/simul_models/product_model.dart';
+import 'package:duka_user/core/models/simulation/simul_models/vendor_product.dart';
 import 'package:duka_user/core/utils/color_utils.dart';
 import 'package:duka_user/core/utils/images_utils.dart';
 import 'package:duka_user/core/utils/size_manager.dart';
@@ -9,11 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class ProductDetailView extends StatefulWidget {
-  final Product product;
+  final VendorProduct vendorProduct;
 
   const ProductDetailView({
     Key? key,
-    required this.product,
+    required this.vendorProduct,
   }) : super(key: key);
 
   @override
@@ -22,11 +23,13 @@ class ProductDetailView extends StatefulWidget {
 
 class _ProductDetailViewState extends State<ProductDetailView> {
   late Product product;
+  late VendorProduct vendorProduct;
 
   @override
   void initState() {
     super.initState();
-    product = widget.product;
+    vendorProduct = widget.vendorProduct;
+    product = widget.vendorProduct.product;
   }
 
   @override
@@ -77,7 +80,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(
                                       SizeMg.radius(10),
-                                  ),
+                                    ),
                                     child: CachedNetworkImage(
                                       imageUrl: '${product.image2}',
                                       placeholder: (ctx, url) =>
@@ -175,14 +178,27 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            Text(
-                              'N${StringUtils.numFormatNoDecimal(product.price)}',
-                              style: TextStyle(
-                                fontSize: SizeMg.text(25),
-                                color: Palette.blackGreen,
-                                fontWeight: FontWeight.w600,
+                            RichText(
+                              text: TextSpan(
+                                text: '\u{20A6}',
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: SizeMg.text(25),
+                                  color: Palette.blackGreen,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: StringUtils.numFormatNoDecimal(
+                                        product.price),
+                                    style: const TextStyle(
+                                      fontFamily: 'Poppins',
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
+                            //Description
                             SizedBox(
                               height: SizeMg.height(21),
                             ),
@@ -204,6 +220,86 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                                 color: Palette.darkGrey,
                               ),
                             ),
+                            //Select Food Type
+                            SizedBox(
+                              height: SizeMg.height(24),
+                            ),
+                            Text(
+                              'Select Type',
+                              style: TextStyle(
+                                fontSize: SizeMg.text(20),
+                                color: Palette.blackGreen,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            SizedBox(
+                              height: SizeMg.height(18),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: FoodType.values.map(
+                                      (foodType) => RadioListTile<FoodType>(
+                                        title: Text(
+                                          'Type ${FoodType.values.indexOf(foodType) + 1}',
+                                          style: TextStyle(
+                                            color: Palette.darkGrey,
+                                            fontSize: SizeMg.text(14),
+                                          ),
+                                        ),
+                                        contentPadding: EdgeInsets.zero,
+                                        visualDensity: const VisualDensity(
+                                          horizontal: VisualDensity.minimumDensity,
+                                          vertical: VisualDensity.minimumDensity,
+                                        ),
+                                        activeColor: Palette.mainOrange,
+                                        groupValue: model.foodType,
+                                        onChanged: (FoodType? type){
+                                          model.changeFoodType(type!);
+                                        },
+                                        value: foodType,
+                                      ),
+                              ).toList(),
+                            ),
+                            //Select Drink Type
+                            SizedBox(
+                              height: SizeMg.height(24),
+                            ),
+                            Text(
+                              'Select Drink',
+                              style: TextStyle(
+                                fontSize: SizeMg.text(20),
+                                color: Palette.blackGreen,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            SizedBox(
+                              height: SizeMg.height(18),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: DrinkType.values.map(
+                                    (drinkType) => RadioListTile<DrinkType>(
+                                  title: Text(
+                                    'Type ${DrinkType.values.indexOf(drinkType) + 1}',
+                                    style: TextStyle(
+                                      color: Palette.darkGrey,
+                                      fontSize: SizeMg.text(14),
+                                    ),
+                                  ),
+                                  contentPadding: EdgeInsets.zero,
+                                  visualDensity: const VisualDensity(
+                                    horizontal: VisualDensity.minimumDensity,
+                                    vertical: VisualDensity.minimumDensity,
+                                  ),
+                                  activeColor: Palette.mainOrange,
+                                  groupValue: model.drinkType,
+                                  onChanged: (DrinkType? type){
+                                    model.changeDrinkType(type!);
+                                  },
+                                  value: drinkType,
+                                ),
+                              ).toList(),
+                            ),
                           ],
                         ),
                       ),
@@ -217,15 +313,21 @@ class _ProductDetailViewState extends State<ProductDetailView> {
         bottomNavigationBar: Container(
           height: SizeMg.height(86),
           color: Colors.white,
-          padding: EdgeInsets.only(left: SizeMg.width(27),),
+          padding: EdgeInsets.only(
+            left: SizeMg.width(27),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
-                onTap: model.productNumber > 1 ? model.decreaseProductNumber : null,
+                onTap: model.productNumber > 1
+                    ? model.decreaseProductNumber
+                    : null,
                 child: Icon(
                   Icons.horizontal_rule_rounded,
-                  color: model.productNumber > 1 ? Palette.secondaryBlack : Palette.inactiveGrey,
+                  color: model.productNumber > 1
+                      ? Palette.secondaryBlack
+                      : Palette.inactiveGrey,
                   size: 30,
                 ),
               ),
@@ -245,9 +347,9 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 ),
               ),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    model.addToCart(product),
+                    model.addToCart(vendorProduct),
                   );
                   Navigator.pop(context);
                 },
@@ -276,13 +378,13 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                             ),
                             children: [
                               TextSpan(
-                                text: StringUtils.numFormatNoDecimal(product.price),
+                                text: StringUtils.numFormatNoDecimal(
+                                    product.price),
                                 style: const TextStyle(
                                   fontFamily: 'Poppins',
                                 ),
                               ),
-                            ]
-                        ),
+                            ]),
                       ),
                       Text(
                         'ADD TO CART',
@@ -303,4 +405,3 @@ class _ProductDetailViewState extends State<ProductDetailView> {
     );
   }
 }
-

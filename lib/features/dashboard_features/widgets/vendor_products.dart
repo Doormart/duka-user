@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:duka_user/core/models/simulation/simul_models/product_model.dart';
+import 'package:duka_user/core/models/simulation/simul_models/vendor_model.dart';
+import 'package:duka_user/core/models/simulation/simul_models/vendor_product.dart';
 import 'package:duka_user/core/utils/color_utils.dart';
 import 'package:duka_user/core/utils/constants.dart';
 import 'package:duka_user/core/utils/images_utils.dart';
@@ -13,18 +15,20 @@ class VendorProducts extends StatelessWidget {
   final TextEditingController searchTextController;
   final Color fillColor, iconColor;
   final Function(String)? onTextChanged;
+  final Vendor vendor;
 
   final VendorDetailsViewModel model = VendorDetailsViewModel();
   final FocusManager focusManager = FocusManager.instance;
 
-  VendorProducts(
-      {Key? key,
-      required this.productList,
-      required this.searchTextController,
-      required this.fillColor,
-      required this.iconColor,
-      required this.onTextChanged})
-      : super(key: key);
+  VendorProducts({
+    Key? key,
+    required this.productList,
+    required this.searchTextController,
+    required this.fillColor,
+    required this.iconColor,
+    required this.onTextChanged,
+    required this.vendor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +79,10 @@ class VendorProducts extends StatelessWidget {
               ),
               itemBuilder: (ctx, index) {
                 final product = productList![index];
+                VendorProduct vendorProduct = VendorProduct(vendor: vendor, product: product);
                 return GestureDetector(
                   onTap: () {
-                    model.productDetailScreen(product);
+                    model.productDetailScreen(vendorProduct);
                     focusManager.primaryFocus?.unfocus();
                   },
                   child: Container(
@@ -155,12 +160,13 @@ class VendorProducts extends StatelessWidget {
                                   ),
                                   children: [
                                     TextSpan(
-                                      text: StringUtils.numFormatNoDecimal(product.price),
+                                      text: StringUtils.numFormatNoDecimal(
+                                          product.price),
                                       style: const TextStyle(
                                         fontFamily: 'Poppins',
                                       ),
                                     ),
-                                  ]
+                                  ],
                                 ),
                               ),
                             ],
@@ -172,15 +178,18 @@ class VendorProducts extends StatelessWidget {
                             child: GestureDetector(
                               onTap: () {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  model.addProductToCart(product),
+                                  model.addProductToCart(vendorProduct),
                                 );
                                 focusManager.primaryFocus?.unfocus();
                               },
-                              child: Container(
+                              child: DecoratedBox(
                                 decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                        width: 2.0, color: Palette.altGreen)),
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    width: 2.0,
+                                    color: Palette.altGreen,
+                                  ),
+                                ),
                                 child: const Icon(
                                   Icons.add,
                                   color: Palette.altGreen,

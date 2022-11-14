@@ -209,8 +209,29 @@ class _VendorDetailsViewState extends State<VendorDetailsView>
                               SizedBox(
                                 width: SizeMg.width(7),
                               ),
-                              Text(
-                                'Delivery Fee N${vendor.minOrder}',
+                              RichText(
+                                text: TextSpan(
+                                    text: 'Delivery Fee ',
+                                    style: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      fontSize: SizeMg.text(14),
+                                      color: Palette.secondaryBlack,
+                                    ),
+                                    children: [
+                                      const TextSpan(
+                                        text: '\u{20A6}',
+                                        style: TextStyle(
+                                          fontFamily: 'Roboto',
+                                        )
+                                      ),
+                                      TextSpan(
+                                        text: '${vendor.minOrder}',
+                                        style: const TextStyle(
+                                          fontFamily: 'Poppins',
+                                        ),
+                                      ),
+                                    ]
+                                ),
                               ),
                             ],
                           ),
@@ -330,6 +351,7 @@ class _VendorDetailsViewState extends State<VendorDetailsView>
           searchTextController: _allTextController,
           fillColor: searchFillColor,
           iconColor: searchIconColor,
+          vendor: vendor,
           onTextChanged: (value){
             model.searchProducts(value, _tabIndex);
             toggleSearchColor(value);
@@ -341,6 +363,7 @@ class _VendorDetailsViewState extends State<VendorDetailsView>
           searchTextController: _comboTextController,
           fillColor: searchFillColor,
           iconColor: searchIconColor,
+          vendor: vendor,
           onTextChanged: (value){
             model.searchProducts(value, _tabIndex);
             toggleSearchColor(value);
@@ -352,6 +375,7 @@ class _VendorDetailsViewState extends State<VendorDetailsView>
           searchTextController: _drinksTextController,
           fillColor: searchFillColor,
           iconColor: searchIconColor,
+          vendor: vendor,
           onTextChanged: (value){
             model.searchProducts(value, _tabIndex);
             toggleSearchColor(value);
@@ -363,6 +387,7 @@ class _VendorDetailsViewState extends State<VendorDetailsView>
           searchTextController: _localTextController,
           fillColor: searchFillColor,
           iconColor: searchIconColor,
+          vendor: vendor,
           onTextChanged: (value){
             model.searchProducts(value, _tabIndex);
             toggleSearchColor(value);

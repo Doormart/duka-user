@@ -4,6 +4,7 @@ class Palette {
   static const Color mainOrange = Color(0xFFEB6F53);
   static const Color fadedOrange = Color(0xFFFFF4F0);
   static const Color midOrange = Color(0xFFF6C8B9);
+  static const Color lightRed = Color(0xFFFFEBEB);
   static const Color blackGreen = Color(0xFF262B2C);
   static const Color secondaryBlack = Color(0xFF383838);
   static const Color green = Color(0xFF476A6F);
@@ -18,4 +19,5 @@ class Palette {
   static const Color imageGradBegin = Color.fromRGBO(30, 30, 30, 0);
   static const Color imageGradEnd = Color.fromRGBO(30, 30, 30, 0.94);
   static const Color imageHeart = Color.fromRGBO(217, 217, 217, 0.13);
+  static const Color borderLine = Color(0xFFF1F1F1);
 }

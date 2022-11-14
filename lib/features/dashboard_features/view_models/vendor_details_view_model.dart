@@ -4,6 +4,7 @@ import 'package:duka_user/core/app/app.router.dart';
 import 'package:duka_user/core/models/simulation/simul_models/order_product_model.dart';
 import 'package:duka_user/core/models/simulation/simul_models/product_model.dart';
 import 'package:duka_user/core/models/simulation/simul_models/vendor_model.dart';
+import 'package:duka_user/core/models/simulation/simul_models/vendor_product.dart';
 import 'package:duka_user/core/models/simulation/simul_values.dart';
 import 'package:duka_user/core/utils/color_utils.dart';
 import 'package:duka_user/core/utils/string_utils.dart';
@@ -101,16 +102,17 @@ class VendorDetailsViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void productDetailScreen(Product product) {
-    _navigationService.navigateToProductDetailView(product: product);
+  void productDetailScreen(VendorProduct vendorProduct) {
+    _navigationService.navigateToProductDetailView(vendorProduct: vendorProduct);
   }
 
   void previousScreen(){
     _navigationService.pushNamedAndRemoveUntil(Routes.dashboardView);
   }
 
-  SnackBar addProductToCart(Product product) {
-    _orderProduct.addProductToOrder(product, 1);
+  SnackBar addProductToCart(VendorProduct vendorProduct) {
+    _orderProduct.addProductToOrder(vendorProduct, 1);
+
     return SnackBar(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
@@ -138,7 +140,7 @@ class VendorDetailsViewModel extends BaseViewModel {
                 ),
                 children: [
                   TextSpan(
-                    text: StringUtils.numFormatNoDecimal(product.price),
+                    text: StringUtils.numFormatNoDecimal(vendorProduct.product.price),
                     style: const TextStyle(
                       fontFamily: 'Poppins',
                     ),

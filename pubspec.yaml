@@ -26,6 +26,7 @@ dependencies:
   cached_network_image: ^3.2.1
   intl: ^0.17.0
   badges: ^2.0.3
+  dotted_line: ^3.1.0
 
 dev_dependencies:
   flutter_test:
@@ -35,7 +36,6 @@ dev_dependencies:
   flutter_launcher_icons: ^0.9.3
   stacked_generator: ^0.8.0
   build_runner:
-  observable_ish:
 
 flutter_icons:
   android: true
@@ -55,6 +55,7 @@ flutter:
   assets:
     - assets/png/
     - assets/svg/
+    - assets/gif/
 
   fonts:
     - family: Poppins

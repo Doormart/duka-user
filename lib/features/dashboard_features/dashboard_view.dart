@@ -37,7 +37,7 @@ class _DashboardViewState extends State<DashboardView> {
           unselectedItemColor: Palette.inactiveGrey,
           items: [
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(ImageUtils.homeIcon),
+              icon: SvgPicture.asset(ImageUtils.homeIcon,),
               activeIcon: SvgPicture.asset(
                 ImageUtils.homeIcon,
                 color: Palette.mainOrange,
