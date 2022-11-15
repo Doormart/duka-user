@@ -28,6 +28,15 @@ InputDecoration kFormTextDecoration = InputDecoration(
   ),
 );
 
+InputDecoration kProfileInputDecoration = InputDecoration(
+  filled: true,
+  fillColor: Palette.offWhite,
+  border: OutlineInputBorder(
+    borderSide: BorderSide.none,
+    borderRadius: BorderRadius.circular(SizeMg.radius(15),),
+  ),
+);
+
 NumberFormat kNumFormatNoDecimal = NumberFormat('#,###');
 
 NumberFormat kNumFormatDecimal = NumberFormat('#,###.0#');

@@ -28,8 +28,8 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(
             color: Palette.blackGreen,
-          )
-        )
+          ),
+        ),
       ),
       navigatorKey: StackedService.navigatorKey,
       navigatorObservers: [StackedService.routeObserver],

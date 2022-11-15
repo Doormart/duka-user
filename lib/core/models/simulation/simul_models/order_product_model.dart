@@ -46,9 +46,12 @@ class OrderProduct with ReactiveServiceMixin {
   }
 
   void emptyOrder() {
-    _placedOrderProducts.value.addAll(_orderProducts.value);
-    notifyListeners();
     _orderProducts.value = {};
+    notifyListeners();
+  }
+
+  void addToPlacedOrder(){
+    _placedOrderProducts.value.addAll(_orderProducts.value);
     notifyListeners();
   }
 }

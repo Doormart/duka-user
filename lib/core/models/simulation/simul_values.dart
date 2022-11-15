@@ -1,4 +1,5 @@
 import 'package:duka_user/core/models/simulation/simul_models/notification_model.dart';
+import 'package:duka_user/core/models/simulation/simul_models/order_model.dart';
 import 'package:duka_user/core/models/simulation/simul_models/product_model.dart';
 import 'package:duka_user/core/models/simulation/simul_models/region_model.dart';
 import 'package:duka_user/core/models/simulation/simul_models/vendor_model.dart';
@@ -309,5 +310,71 @@ List<NotificationModel> notificationGroup = [
         notificationDate: DateTime.parse('2022-11-06T11:20:00'),
       ),
     ],
+  ),
+];
+
+List<Order> completedOrderList = [
+  Order(
+    id: '#dk1092p',
+    deliveryDeparture: DateTime.parse('2022-11-15T11:34:00'),
+    deliveryArrival: DateTime.parse('2022-11-15T12:04:00'),
+    address: '17, Aimee Strt, Ikotun, Lagos',
+    total: 6350,
+    quantity: 4,
+    vendor: vendorList[0],
+    product: productList[0],
+    rating: 5,
+  ),
+  Order(
+    id: '#dk1082p',
+    deliveryDeparture: DateTime.parse('2022-11-14T14:04:00'),
+    deliveryArrival: DateTime.parse('2022-11-14T15:04:00'),
+    address: '17, Aimee Strt, Ikotun, Lagos',
+    total: 3350,
+    quantity: 2,
+    vendor: vendorList[0],
+    product: productList[1],
+  ),
+  Order(
+    id: '#dk1172p',
+    deliveryDeparture: DateTime.parse('2022-11-14T11:34:00'),
+    deliveryArrival: DateTime.parse('2022-11-14T12:04:00'),
+    address: '13, Wahab Strt, Ago, Lagos',
+    total: 6300,
+    quantity: 4,
+    vendor: vendorList[1],
+    product: productList[2],
+    rating: 3,
+  ),
+  Order(
+    id: '#dk1292p',
+    deliveryDeparture: DateTime.parse('2022-11-13T11:34:00'),
+    deliveryArrival: DateTime.parse('2022-11-13T12:04:00'),
+    address: '17, Aimee Strt, Ikotun, Lagos',
+    total: 6350,
+    quantity: 4,
+    vendor: vendorList[0],
+    product: productList[0],
+  ),
+  Order(
+    id: '#dk0082p',
+    deliveryDeparture: DateTime.parse('2022-11-12T14:04:00'),
+    deliveryArrival: DateTime.parse('2022-11-12T15:04:00'),
+    address: '17, Abacha Road, Mararaba, Nasarawa',
+    total: 3350,
+    quantity: 2,
+    vendor: vendorList[0],
+    product: productList[1],
+  ),
+  Order(
+    id: '#dk1272p',
+    deliveryDeparture: DateTime.parse('2022-11-10T11:34:00'),
+    deliveryArrival: DateTime.parse('2022-11-10T12:04:00'),
+    address: '13, Wahab Strt, Ago, Lagos',
+    total: 6300,
+    quantity: 4,
+    vendor: vendorList[1],
+    product: productList[2],
+    rating: 2.5,
   ),
 ];

@@ -1,4 +1,5 @@
 import 'package:dotted_line/dotted_line.dart';
+import 'package:duka_user/core/models/simulation/simul_models/order_model.dart';
 import 'package:duka_user/core/models/simulation/simul_models/vendor_product.dart';
 import 'package:duka_user/core/shared_widgets/buttons.dart';
 import 'package:duka_user/core/utils/color_utils.dart';
@@ -7,9 +8,11 @@ import 'package:duka_user/core/utils/images_utils.dart';
 import 'package:duka_user/core/utils/size_manager.dart';
 import 'package:duka_user/core/utils/string_utils.dart';
 import 'package:duka_user/features/dashboard_features/view_models/orders_view_model.dart';
+import 'package:duka_user/features/dashboard_features/widgets/completed_order_box.dart';
 import 'package:duka_user/features/dashboard_features/widgets/order_container.dart';
 import 'package:duka_user/features/dashboard_features/widgets/placedOrderContainer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
 
@@ -59,7 +62,7 @@ class _OrdersViewState extends State<OrdersView>
               fontSize: SizeMg.text(20),
               fontWeight: FontWeight.w500,
               color: Palette.blackGreen,
-            )),
+            ),),
         centerTitle: true,
         bottom: TabBar(
           labelStyle: TextStyle(
@@ -81,11 +84,22 @@ class _OrdersViewState extends State<OrdersView>
       ),
       body: ViewModelBuilder<OrdersViewModel>.reactive(
         viewModelBuilder: () => OrdersViewModel(),
+        onModelReady: (model) => model.init(),
+        fireOnModelReadyOnce: true,
+        disposeViewModel: false,
         builder: (_, model, __) => TabBarView(
           controller: _tabController,
           children: [
             Builder(
               builder: (ctx) {
+                if (model.isBusy){
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: Palette.mainOrange,
+                    ),
+                  );
+                }
+
                 if (model.orderProduct.isEmpty &&
                     model.placedOrderProduct.isEmpty) {
                   return Center(
@@ -205,7 +219,7 @@ class _OrdersViewState extends State<OrdersView>
                                           color: addressIconColor,
                                         ),
                                       ),
-                                      onChanged: (value) => toggleAddressColor(
+                                      onChanged: (value) => _toggleAddressColor(
                                         value,
                                       ),
                                       validator: (value) {
@@ -409,7 +423,7 @@ class _OrdersViewState extends State<OrdersView>
                                       fillColor: instructionsFillColor,
                                     ),
                                     onChanged: (value) =>
-                                        toggleInstructionsColor(
+                                        _toggleInstructionsColor(
                                       value,
                                     ),
                                   ),
@@ -463,7 +477,7 @@ class _OrdersViewState extends State<OrdersView>
                                         ),
                                       ),
                                     ),
-                                    onChanged: (value) => toggleCouponColor(
+                                    onChanged: (value) => _toggleCouponColor(
                                       value,
                                     ),
                                   ),
@@ -651,7 +665,7 @@ class _OrdersViewState extends State<OrdersView>
                             buttonConfig: ButtonConfig(
                               text: 'Cancel Order',
                               action: () {
-                                print('cancel order');
+                                model.cancelOrder();
                               },
                             ),
                           ),
@@ -664,10 +678,18 @@ class _OrdersViewState extends State<OrdersView>
             ),
             Builder(
               builder: (ctx) {
-                if (model.orderProduct.isEmpty) {
+                if (model.isBusy){
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: Palette.mainOrange,
+                    ),
+                  );
+                }
+
+                if (model.completedOrders == null || model.completedOrders!.isEmpty) {
                   return Center(
                     child: Text(
-                      'No ongoing order. Order something',
+                      'No completed order. Order something',
                       style: TextStyle(
                         fontSize: SizeMg.text(18),
                         color: Palette.blackGreen,
@@ -676,14 +698,27 @@ class _OrdersViewState extends State<OrdersView>
                   );
                 }
 
-                return SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: const [
-                      Text(
-                        'Dieeeeee',
+                return ListView.separated(
+                  shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
+                  itemCount: model.completedOrders!.length,
+                  padding: EdgeInsets.symmetric(
+                    vertical: SizeMg.height(10),
+                  ),
+                  itemBuilder: (ctx, index){
+                    Order completedOrder = model.completedOrders![index];
+                    return GestureDetector(
+                      onTap: (){
+                        _buildCompletedBottomSheet(model, completedOrder);
+                      },
+                      child: CompletedOrderBox(
+                        completedOrder: completedOrder,
                       ),
-                    ],
+                    );
+                  },
+                  separatorBuilder: (ctx, index) => const DottedLine(
+                    dashGapLength: 0,
+                    dashColor: Palette.inactiveGrey,
                   ),
                 );
               },
@@ -708,6 +743,10 @@ class _OrdersViewState extends State<OrdersView>
           Image.asset(
             ImageUtils.placingOrderGif,
             fit: BoxFit.cover,
+            height: SizeMg.height(86),
+          ),
+          SizedBox(
+            height: SizeMg.height(10),
           ),
           Text(
             'Processing Order',
@@ -726,14 +765,337 @@ class _OrdersViewState extends State<OrdersView>
       ),
     );
     model.checkOut();
-    popDialog();
+    _popDialog();
   }
 
-  void popDialog() {
+  void _popDialog() {
     Navigator.pop(context);
   }
 
-  void toggleAddressColor(String s) {
+  Future _buildCompletedBottomSheet(OrdersViewModel model, Order completedOrder){
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) => ClipRRect(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(
+            SizeMg.radius(50),
+          ),
+          topLeft: Radius.circular(
+            SizeMg.radius(50),
+          ),
+        ),
+        child: ColoredBox(
+          color: Colors.white,
+          child: DraggableScrollableSheet(
+            expand: false,
+            maxChildSize: 0.8,
+            builder: (ctx, scrollController){
+              DateTime departure = completedOrder.deliveryDeparture;
+              DateTime arrival = completedOrder.deliveryArrival;
+              return ListView(
+                controller: scrollController,
+                padding: EdgeInsets.symmetric(
+                  horizontal: SizeMg.width(26),
+                ),
+                shrinkWrap: true,
+                children: [
+                  Container(
+                    height: SizeMg.height(10),
+                    margin: EdgeInsets.symmetric(
+                      horizontal: SizeMg.width(140),
+                      vertical: SizeMg.height(30),
+                    ),
+                    decoration: BoxDecoration(
+                      color: Palette.darkGrey,
+                      borderRadius:
+                      BorderRadius.circular(SizeMg.radius(30),),
+                    ),
+                  ),
+                  //Order id
+                  Text(
+                    'Order ${completedOrder.id}',
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: SizeMg.text(20),
+                      color: Palette.blackGreen,
+                    ),
+                  ),
+                  SizedBox(
+                    height: SizeMg.height(21),
+                  ),
+                  //From
+                  Row(
+                    children: [
+                      Text(
+                        'From',
+                        style: TextStyle(
+                          fontSize: SizeMg.text(16),
+                          color: Palette.blackGreen,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(
+                        width: SizeMg.width(10),
+                      ),
+                      Flexible(
+                        child: Text(
+                          '${completedOrder.vendor.address}',
+                          style: TextStyle(
+                            fontSize: SizeMg.text(16),
+                            color: Palette.secondaryBlack,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: SizeMg.height(21),
+                  ),
+                  //To
+                  Row(
+                    children: [
+                      Text(
+                        'To',
+                        style: TextStyle(
+                          fontSize: SizeMg.text(16),
+                          color: Palette.blackGreen,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(
+                        width: SizeMg.width(32),
+                      ),
+                      Flexible(
+                        child: Text(
+                          completedOrder.address,
+                          style: TextStyle(
+                            fontSize: SizeMg.text(16),
+                            color: Palette.secondaryBlack,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: SizeMg.height(21),
+                  ),
+                  //DeliveryTime
+                  Row(
+                    children: [
+                      Text(
+                        'Delivery Time',
+                        style: TextStyle(
+                          fontSize: SizeMg.text(14),
+                          color: Palette.blackGreen,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(
+                        width: SizeMg.width(10),
+                      ),
+                      RichText(
+                        overflow: TextOverflow.ellipsis,
+                        text: TextSpan(
+                          text: '${StringUtils.timeDiffInMinutes(departure, arrival)}mins ',
+                          style: TextStyle(
+                            fontSize: SizeMg.text(14),
+                            fontWeight: FontWeight.w500,
+                            color: Palette.secondaryBlack,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '(${StringUtils.formatCompletedOrderTime(departure)} - ${StringUtils.formatCompletedOrderTime(arrival)})',
+                              style: const TextStyle(
+                                color: Palette.darkGrey,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  //Product Container
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                      vertical: SizeMg.height(20),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeMg.width(14),
+                      vertical: SizeMg.height(17),
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        SizeMg.radius(10),
+                      ),
+                      color: Palette.offWhite,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          '${completedOrder.quantity}x ${completedOrder.product.name}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: SizeMg.text(16),
+                            color: Palette.blackGreen,
+                          ),
+                        ),
+                        SizedBox(
+                          height: SizeMg.height(14),
+                        ),
+                        //Sub-total
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Sub-Total',
+                              style: TextStyle(
+                                fontSize: SizeMg.text(14),
+                                color: Palette.secondaryBlack,
+                              ),
+                            ),
+                            RichText(
+                              overflow: TextOverflow.ellipsis,
+                              text: TextSpan(
+                                text: '\u20A6',
+                                style: TextStyle(
+                                  fontSize: SizeMg.text(14),
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: 'Roboto',
+                                  color: Palette.secondaryBlack,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: StringUtils.numFormatDecimal(completedOrder.product.price! * completedOrder.quantity),
+                                    style: const TextStyle(
+                                      fontFamily: 'Poppins',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        //Delivery Fee
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Delivery',
+                              style: TextStyle(
+                                fontSize: SizeMg.text(14),
+                                color: Palette.secondaryBlack,
+                              ),
+                            ),
+                            RichText(
+                              overflow: TextOverflow.ellipsis,
+                              text: TextSpan(
+                                text: '\u20A6',
+                                style: TextStyle(
+                                  fontSize: SizeMg.text(14),
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: 'Roboto',
+                                  color: Palette.secondaryBlack,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: completedOrder.vendor.minOrder,
+                                    style: const TextStyle(
+                                      fontFamily: 'Poppins',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        //Total
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Total',
+                              style: TextStyle(
+                                fontSize: SizeMg.text(14),
+                                color: Palette.secondaryBlack,
+                              ),
+                            ),
+                            RichText(
+                              overflow: TextOverflow.ellipsis,
+                              text: TextSpan(
+                                text: '\u20A6',
+                                style: TextStyle(
+                                  fontSize: SizeMg.text(14),
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: 'Roboto',
+                                  color: Palette.secondaryBlack,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: StringUtils.numFormatDecimal(completedOrder.total),
+                                    style: const TextStyle(
+                                      fontFamily: 'Poppins',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  //Rating
+                  Text(
+                    'Rate your order',
+                    style: TextStyle(
+                      fontSize: SizeMg.text(16),
+                      fontWeight: FontWeight.w500,
+                      color: Palette.blackGreen,
+                    ),
+                  ),
+                  SizedBox(
+                    height: SizeMg.height(20),
+                  ),
+                  RatingBar(
+                    initialRating: completedOrder.rating ?? 0,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemPadding: EdgeInsets.symmetric(
+                      horizontal: SizeMg.width(4.0),
+                    ),
+                    ratingWidget: RatingWidget(
+                      full: const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      half: const Icon(
+                        Icons.star_half,
+                        color: Colors.amber,
+                      ),
+                      empty: const Icon(
+                        Icons.star_outline_outlined,
+                        color: Palette.inactiveGrey,
+                      ),
+                    ),
+                    onRatingUpdate: (rating) {
+                      model.rateOrder(rating);
+                      Navigator.pop(context);
+                      },
+                  ),
+                ],
+              );
+            }
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _toggleAddressColor(String s) {
     if (s.isEmpty) {
       setState(() {
         addressFillColor = Palette.staleWhite;
@@ -747,7 +1109,7 @@ class _OrdersViewState extends State<OrdersView>
     }
   }
 
-  void toggleInstructionsColor(String s) {
+  void _toggleInstructionsColor(String s) {
     if (s.isEmpty) {
       setState(() {
         instructionsFillColor = Palette.staleWhite;
@@ -759,7 +1121,7 @@ class _OrdersViewState extends State<OrdersView>
     }
   }
 
-  void toggleCouponColor(String s) {
+  void _toggleCouponColor(String s) {
     if (s.isEmpty) {
       setState(() {
         couponIconColor = Palette.inactiveGrey;

@@ -5,6 +5,7 @@ import 'package:duka_user/features/auth_features/create_account_otp_view.dart';
 import 'package:duka_user/features/auth_features/login_otp_view.dart';
 import 'package:duka_user/features/auth_features/login_view.dart';
 import 'package:duka_user/features/dashboard_features/dashboard_view.dart';
+import 'package:duka_user/features/dashboard_features/delete_account_view.dart';
 import 'package:duka_user/features/dashboard_features/landing_view.dart';
 import 'package:duka_user/features/dashboard_features/order_placed_view.dart';
 import 'package:duka_user/features/dashboard_features/order_tracking_view.dart';
@@ -33,6 +34,7 @@ import 'package:stacked_services/stacked_services.dart';
     AdaptiveRoute(page: ProfileView),
     AdaptiveRoute(page: OrderPlacedView),
     AdaptiveRoute(page: OrderTrackingView),
+    AdaptiveRoute(page: DeleteAccountView),
   ],
   logger: StackedLogger(),
   dependencies: [

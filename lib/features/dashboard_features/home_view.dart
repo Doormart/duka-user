@@ -175,7 +175,6 @@ class _HomeViewState extends State<HomeView> {
             color: Colors.white,
             child: DraggableScrollableSheet(
               initialChildSize: 0.4,
-              minChildSize: 0.2,
               maxChildSize: 0.8,
               expand: false,
               builder: (context, scrollController) {
@@ -203,7 +202,7 @@ class _HomeViewState extends State<HomeView> {
                         decoration: BoxDecoration(
                           color: Palette.darkGrey,
                           borderRadius:
-                              BorderRadius.circular(SizeMg.radius(30)),
+                              BorderRadius.circular(SizeMg.radius(30),),
                         ),
                       ),
                       ListView.separated(

@@ -46,4 +46,18 @@ class StringUtils {
     return kNumFormatDecimal.format(number);
   }
 
+  static String formatCompletedOrderDate(DateTime dateTime){
+    return Jiffy(dateTime).format('do MMM, yyyy h:mm a');
+  }
+
+  static String timeDiffInMinutes(DateTime before, DateTime after){
+    Jiffy departure = Jiffy(before);
+    Jiffy arrival = Jiffy(after);
+    return '${arrival.diff(departure, Units.MINUTE)}';
+  }
+
+  static String formatCompletedOrderTime(DateTime dateTime){
+    return Jiffy(dateTime).format('h:mm a');
+  }
+
 }

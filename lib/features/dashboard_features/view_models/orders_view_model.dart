@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:duka_user/core/app/app.locator.dart';
 import 'package:duka_user/core/app/app.router.dart';
+import 'package:duka_user/core/models/simulation/simul_models/order_model.dart';
 import 'package:duka_user/core/models/simulation/simul_models/order_product_model.dart';
 import 'package:duka_user/core/models/simulation/simul_models/vendor_product.dart';
+import 'package:duka_user/core/models/simulation/simul_values.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -10,7 +14,7 @@ enum DeliveryTime {now, schedule}
 enum PaymentMethod {wallet, card}
 
 class OrdersViewModel extends BaseViewModel {
-
+  //Ongoing properties
   final _orderProduct = locator<OrderProduct>();
   final _navigationService = locator<NavigationService>();
 
@@ -39,6 +43,7 @@ class OrdersViewModel extends BaseViewModel {
 
   int get total => subTotal + deliveryFee;
 
+  //Ongoing Functions
   void deleteOrder(VendorProduct vendorProduct){
    _orderProduct.removeProductToOrder(vendorProduct);
    notifyListeners();
@@ -65,6 +70,11 @@ class OrdersViewModel extends BaseViewModel {
   }
 
   void checkOut(){
+    _orderProduct.addToPlacedOrder();
+    cancelOrder();
+  }
+
+  void cancelOrder(){
     _orderProduct.emptyOrder();
     notifyListeners();
   }
@@ -73,4 +83,26 @@ class OrdersViewModel extends BaseViewModel {
     _navigationService.navigateTo(Routes.orderPlacedView);
   }
 
+
+
+  //CompletedProperties
+  List<Order>? completedOrders;
+
+  void getCompletedOrders(){
+    completedOrders = completedOrderList;
+    notifyListeners();
+  }
+
+
+  void init(){
+    setBusy(true);
+    getCompletedOrders();
+    Timer(const Duration(seconds: 5), (){
+      setBusy(false);
+    });
+  }
+
+  void rateOrder(double rating){
+    print(rating);
+  }
 }
