@@ -56,7 +56,8 @@ class StringUtils {
     return '${arrival.diff(departure, Units.MINUTE)}';
   }
 
-  static String formatCompletedOrderTime(DateTime dateTime){
+  static String formatTime12(DateTime dateTime){
+    ///Format date time into 12hr time format using Jiffy package
     return Jiffy(dateTime).format('h:mm a');
   }
 

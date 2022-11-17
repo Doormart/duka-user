@@ -4,7 +4,7 @@ import 'package:duka_user/core/models/simulation/simul_models/vendor_product.dar
 import 'package:duka_user/core/utils/color_utils.dart';
 import 'package:duka_user/core/utils/size_manager.dart';
 import 'package:duka_user/core/utils/string_utils.dart';
-import 'package:duka_user/features/dashboard_features/view_models/orders_view_model.dart';
+import 'package:duka_user/features/orders_features/view_models/orders_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 

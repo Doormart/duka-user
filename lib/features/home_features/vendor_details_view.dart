@@ -3,8 +3,8 @@ import 'package:duka_user/core/models/simulation/simul_models/vendor_model.dart'
 import 'package:duka_user/core/utils/color_utils.dart';
 import 'package:duka_user/core/utils/images_utils.dart';
 import 'package:duka_user/core/utils/size_manager.dart';
-import 'package:duka_user/features/dashboard_features/view_models/vendor_details_view_model.dart';
-import 'package:duka_user/features/dashboard_features/widgets/vendor_products.dart';
+import 'package:duka_user/features/home_features/view_models/vendor_details_view_model.dart';
+import 'package:duka_user/features/home_features/widgets/vendor_products.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
@@ -88,10 +88,8 @@ class _VendorDetailsViewState extends State<VendorDetailsView>
                 slivers: [
                   SliverAppBar(
                     pinned: true,
-                    floating: true,
-                    snap: false,
                     expandedHeight: screenHeight * 0.3,
-                    leading: InkWell(
+                    leading: GestureDetector(
                       onTap: model.previousScreen,
                       child: const Icon(
                         Icons.arrow_back_ios_new_rounded,

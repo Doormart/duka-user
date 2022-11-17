@@ -1,7 +1,7 @@
 import 'package:duka_user/core/utils/color_utils.dart';
 import 'package:duka_user/core/utils/constants.dart';
 import 'package:duka_user/core/utils/size_manager.dart';
-import 'package:duka_user/features/dashboard_features/view_models/select_region_view_model.dart';
+import 'package:duka_user/features/home_features/view_models/select_region_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 

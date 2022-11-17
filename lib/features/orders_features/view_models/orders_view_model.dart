@@ -101,7 +101,6 @@ class OrdersViewModel extends BaseViewModel {
       setBusy(false);
     });
   }
-
   void rateOrder(double rating){
     print(rating);
   }

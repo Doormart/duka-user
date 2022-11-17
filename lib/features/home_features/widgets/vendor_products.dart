@@ -7,7 +7,7 @@ import 'package:duka_user/core/utils/constants.dart';
 import 'package:duka_user/core/utils/images_utils.dart';
 import 'package:duka_user/core/utils/size_manager.dart';
 import 'package:duka_user/core/utils/string_utils.dart';
-import 'package:duka_user/features/dashboard_features/view_models/vendor_details_view_model.dart';
+import 'package:duka_user/features/home_features/view_models/vendor_details_view_model.dart';
 import 'package:flutter/material.dart';
 
 class VendorProducts extends StatelessWidget {

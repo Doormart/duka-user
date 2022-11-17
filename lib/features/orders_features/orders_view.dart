@@ -7,7 +7,7 @@ import 'package:duka_user/core/utils/constants.dart';
 import 'package:duka_user/core/utils/images_utils.dart';
 import 'package:duka_user/core/utils/size_manager.dart';
 import 'package:duka_user/core/utils/string_utils.dart';
-import 'package:duka_user/features/dashboard_features/view_models/orders_view_model.dart';
+import 'package:duka_user/features/orders_features/view_models/orders_view_model.dart';
 import 'package:duka_user/features/dashboard_features/widgets/completed_order_box.dart';
 import 'package:duka_user/features/dashboard_features/widgets/order_container.dart';
 import 'package:duka_user/features/dashboard_features/widgets/placedOrderContainer.dart';
@@ -906,7 +906,7 @@ class _OrdersViewState extends State<OrdersView>
                           ),
                           children: [
                             TextSpan(
-                              text: '(${StringUtils.formatCompletedOrderTime(departure)} - ${StringUtils.formatCompletedOrderTime(arrival)})',
+                              text: '(${StringUtils.formatTime12(departure)} - ${StringUtils.formatTime12(arrival)})',
                               style: const TextStyle(
                                 color: Palette.darkGrey,
                                 fontWeight: FontWeight.w400,

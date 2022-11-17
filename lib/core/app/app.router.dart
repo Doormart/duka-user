@@ -6,9 +6,9 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:duka_user/core/models/simulation/simul_models/vendor_model.dart'
-    as _i16;
+    as _i21;
 import 'package:duka_user/core/models/simulation/simul_models/vendor_product.dart'
-    as _i17;
+    as _i22;
 import 'package:duka_user/features/auth_features/auth_home_view.dart' as _i3;
 import 'package:duka_user/features/auth_features/create_account_otp_view.dart'
     as _i5;
@@ -19,22 +19,27 @@ import 'package:duka_user/features/auth_features/login_view.dart' as _i6;
 import 'package:duka_user/features/dashboard_features/dashboard_view.dart'
     as _i9;
 import 'package:duka_user/features/dashboard_features/landing_view.dart' as _i8;
-import 'package:duka_user/features/dashboard_features/order_placed_view.dart'
-    as _i13;
-import 'package:duka_user/features/dashboard_features/order_tracking_view.dart'
-    as _i14;
-import 'package:duka_user/features/dashboard_features/product_details_view.dart'
+import 'package:duka_user/features/home_features/product_details_view.dart'
     as _i11;
-import 'package:duka_user/features/dashboard_features/profile_view.dart'
-    as _i12;
-import 'package:duka_user/features/dashboard_features/vendor_details_view.dart'
+import 'package:duka_user/features/home_features/vendor_details_view.dart'
     as _i10;
+import 'package:duka_user/features/more_features/faqs_view.dart' as _i17;
+import 'package:duka_user/features/more_features/referral_view.dart' as _i19;
+import 'package:duka_user/features/more_features/support_view.dart' as _i18;
+import 'package:duka_user/features/more_features/wallet_view.dart' as _i16;
+import 'package:duka_user/features/orders_features/order_placed_view.dart'
+    as _i13;
+import 'package:duka_user/features/orders_features/order_tracking_view.dart'
+    as _i14;
+import 'package:duka_user/features/profile_features/delete_account_view.dart'
+    as _i15;
+import 'package:duka_user/features/profile_features/profile_view.dart' as _i12;
 import 'package:duka_user/features/splash_screen_features/splash_screen_view.dart'
     as _i2;
-import 'package:flutter/material.dart' as _i15;
+import 'package:flutter/material.dart' as _i20;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i18;
+import 'package:stacked_services/stacked_services.dart' as _i23;
 
 class Routes {
   static const splashScreenView = '/';
@@ -63,6 +68,16 @@ class Routes {
 
   static const orderTrackingView = '/order-tracking-view';
 
+  static const deleteAccountView = '/delete-account-view';
+
+  static const walletView = '/wallet-view';
+
+  static const faqsView = '/faqs-view';
+
+  static const supportView = '/support-view';
+
+  static const referralView = '/referral-view';
+
   static const all = <String>{
     splashScreenView,
     authHomeView,
@@ -77,6 +92,11 @@ class Routes {
     profileView,
     orderPlacedView,
     orderTrackingView,
+    deleteAccountView,
+    walletView,
+    faqsView,
+    supportView,
+    referralView,
   };
 }
 
@@ -133,6 +153,26 @@ class StackedRouter extends _i1.RouterBase {
     _i1.RouteDef(
       Routes.orderTrackingView,
       page: _i14.OrderTrackingView,
+    ),
+    _i1.RouteDef(
+      Routes.deleteAccountView,
+      page: _i15.DeleteAccountView,
+    ),
+    _i1.RouteDef(
+      Routes.walletView,
+      page: _i16.WalletView,
+    ),
+    _i1.RouteDef(
+      Routes.faqsView,
+      page: _i17.FaqsView,
+    ),
+    _i1.RouteDef(
+      Routes.supportView,
+      page: _i18.SupportView,
+    ),
+    _i1.RouteDef(
+      Routes.referralView,
+      page: _i19.ReferralView,
     ),
   ];
 
@@ -225,6 +265,36 @@ class StackedRouter extends _i1.RouterBase {
         settings: data,
       );
     },
+    _i15.DeleteAccountView: (data) {
+      return _i1.buildAdaptivePageRoute<dynamic>(
+        builder: (context) => const _i15.DeleteAccountView(),
+        settings: data,
+      );
+    },
+    _i16.WalletView: (data) {
+      return _i1.buildAdaptivePageRoute<dynamic>(
+        builder: (context) => const _i16.WalletView(),
+        settings: data,
+      );
+    },
+    _i17.FaqsView: (data) {
+      return _i1.buildAdaptivePageRoute<dynamic>(
+        builder: (context) => const _i17.FaqsView(),
+        settings: data,
+      );
+    },
+    _i18.SupportView: (data) {
+      return _i1.buildAdaptivePageRoute<dynamic>(
+        builder: (context) => const _i18.SupportView(),
+        settings: data,
+      );
+    },
+    _i19.ReferralView: (data) {
+      return _i1.buildAdaptivePageRoute<dynamic>(
+        builder: (context) => const _i19.ReferralView(),
+        settings: data,
+      );
+    },
   };
 
   @override
@@ -236,7 +306,7 @@ class StackedRouter extends _i1.RouterBase {
 class AuthHomeViewArguments {
   const AuthHomeViewArguments({this.key});
 
-  final _i15.Key? key;
+  final _i20.Key? key;
 }
 
 class VendorDetailsViewArguments {
@@ -245,9 +315,9 @@ class VendorDetailsViewArguments {
     required this.vendor,
   });
 
-  final _i15.Key? key;
+  final _i20.Key? key;
 
-  final _i16.Vendor vendor;
+  final _i21.Vendor vendor;
 }
 
 class ProductDetailViewArguments {
@@ -256,18 +326,18 @@ class ProductDetailViewArguments {
     required this.vendorProduct,
   });
 
-  final _i15.Key? key;
+  final _i20.Key? key;
 
-  final _i17.VendorProduct vendorProduct;
+  final _i22.VendorProduct vendorProduct;
 }
 
 class OrderPlacedViewArguments {
   const OrderPlacedViewArguments({this.key});
 
-  final _i15.Key? key;
+  final _i20.Key? key;
 }
 
-extension NavigatorStateExtension on _i18.NavigationService {
+extension NavigatorStateExtension on _i23.NavigationService {
   Future<dynamic> navigateToSplashScreenView([
     int? routerId,
     bool preventDuplicates = true,
@@ -283,7 +353,7 @@ extension NavigatorStateExtension on _i18.NavigationService {
   }
 
   Future<dynamic> navigateToAuthHomeView({
-    _i15.Key? key,
+    _i20.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -383,8 +453,8 @@ extension NavigatorStateExtension on _i18.NavigationService {
   }
 
   Future<dynamic> navigateToVendorDetailsView({
-    _i15.Key? key,
-    required _i16.Vendor vendor,
+    _i20.Key? key,
+    required _i21.Vendor vendor,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -400,8 +470,8 @@ extension NavigatorStateExtension on _i18.NavigationService {
   }
 
   Future<dynamic> navigateToProductDetailView({
-    _i15.Key? key,
-    required _i17.VendorProduct vendorProduct,
+    _i20.Key? key,
+    required _i22.VendorProduct vendorProduct,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -432,7 +502,7 @@ extension NavigatorStateExtension on _i18.NavigationService {
   }
 
   Future<dynamic> navigateToOrderPlacedView({
-    _i15.Key? key,
+    _i20.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -455,6 +525,76 @@ extension NavigatorStateExtension on _i18.NavigationService {
         transition,
   ]) async {
     return navigateTo<dynamic>(Routes.orderTrackingView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToDeleteAccountView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.deleteAccountView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToWalletView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.walletView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToFaqsView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.faqsView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToSupportView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.supportView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToReferralView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.referralView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
