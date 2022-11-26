@@ -4,9 +4,9 @@ import 'package:duka_user/core/utils/color_utils.dart';
 import 'package:duka_user/core/utils/size_manager.dart';
 import 'package:duka_user/core/utils/string_utils.dart';
 import 'package:duka_user/features/home_features/view_models/home_view_model.dart';
-import 'package:duka_user/features/dashboard_features/widgets/carousel_stack.dart';
-import 'package:duka_user/features/dashboard_features/widgets/notification_widget.dart';
-import 'package:duka_user/features/dashboard_features/widgets/select_region.dart';
+import 'package:duka_user/features/home_features/widgets/carousel_stack.dart';
+import 'package:duka_user/features/home_features/widgets/notification_widget.dart';
+import 'package:duka_user/features/home_features/widgets/select_region.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
